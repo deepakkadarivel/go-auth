@@ -7,3 +7,8 @@ import:
 - package: github.com/gorilla/handlers
   version: v1.2.1
 - package: github.com/auth0/go-jwt-middleware
+- package: bitbucket.org/liamstask/goose
+  subpackages:
+  - cmd/goose
+- package: github.com/jinzhu/gorm
+  version: v1.0

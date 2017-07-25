@@ -1,8 +1,10 @@
-hash: 4f1f653d240432958a356ec5d294c152de809fc4595956ed7ae17e1d35f520a0
-updated: 2017-07-23T22:32:34.947162724+05:30
+hash: 475ab59e6a7f758ec2976f26540e37b4b7427353a57322310743cd386e032bdb
+updated: 2017-07-25T08:44:38.150240725+05:30
 imports:
-- name: github.com/auth0-community/auth0
-  version: 09caa56e7d44bd2b2f6e7ddbd6e7c509f0ecb28c
+- name: bitbucket.org/liamstask/goose
+  version: 8488cc47d90c8a502b1c41a462a6d9cc8ee0a895
+  subpackages:
+  - cmd/goose
 - name: github.com/auth0/go-jwt-middleware
   version: 5493cabe49f7bfa6e2ec444a09d334d90cd4e2bd
 - name: github.com/dgrijalva/jwt-go
@@ -13,6 +15,6 @@ imports:
   version: a4043c62cc2329bacda331d33fc908ab11ef0ec3
 - name: github.com/gorilla/mux
   version: bcd8bc72b08df0f70df986b97f95590779502d31
-- name: gopkg.in/square/go-jose.v2
-  version: b25e6cab129e4a54675b42ea49d38e9c33ade9e6
+- name: github.com/jinzhu/gorm
+  version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
 testImports: []

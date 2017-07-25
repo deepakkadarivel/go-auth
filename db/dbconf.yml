@@ -1,0 +1,3 @@
+development:
+    driver: postgres
+    open: host=localhost port=5432 user=admin dbname=goauth password=C0mplexPwd!1234 search_path=auth sslmode=disable
