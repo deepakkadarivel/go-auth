@@ -41,3 +41,17 @@ var JwtValidator = jwtmiddleware.New(jwtmiddleware.Options{
 	},
 	SigningMethod: jwt.SigningMethodHS256,
 })
+
+func GetAuthToken(username, email string) string {
+	token := jwt.New(jwt.SigningMethodHS256)
+
+	claims := token.Claims.(jwt.MapClaims)
+
+	claims["admin"] = false
+	claims["username"] = username
+	claims["email"] = email
+	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+
+	tokenString, _ := token.SignedString(MySigningKey)
+	return tokenString
+}
