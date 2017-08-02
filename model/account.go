@@ -21,8 +21,34 @@ type User struct {
 	Token    string `json:"token"`
 }
 
-func (acc *Account) login(db *sql.DB) (User, error) {
-	return User{}, errors.New("Not Implemented.")
+func (acc *Account) Login(db *sql.DB, account Account) (interface{}, error) {
+	queryStmt, err := db.Prepare("SELECT username, password_hash FROM account WHERE email=$1")
+
+	if err != nil {
+		return nil, err
+	}
+
+	var username, password_hash string
+	err = queryStmt.QueryRow(account.Email).Scan(&username, &password_hash)
+	if err == sql.ErrNoRows {
+		return nil, fmt.Errorf("User with email %v does not exist.", account.Email)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	var isValidUser = util.CheckPassword(account.Password, password_hash)
+
+	if isValidUser {
+		var user = User{}
+		user.Email = account.Email
+		user.Username = username
+		user.Token = jwthandler.GetAuthToken(user.Username, user.Email)
+		fmt.Println("User : ", user)
+		return user, nil
+	} else {
+		return nil, fmt.Errorf("Invalid password.")
+	}
 }
 
 func (acc *Account) Register(db *sql.DB, account Account) (interface{}, error) {

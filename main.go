@@ -62,6 +62,7 @@ func (app *App) Initialize(connectionString string) {
 
 func (app *App) initializeRoutes() {
 	app.Router.HandleFunc("/register", app.register).Methods("POST")
+	app.Router.HandleFunc("/login", app.login).Methods("POST")
 	app.Router.Handle("/", renderHome).Methods("GET")
 }
 
@@ -82,6 +83,26 @@ func (app *App) register(res http.ResponseWriter, req *http.Request) {
 	fmt.Println("account : ", account)
 
 	user, err := account.Register(app.DB, account)
+	if err != nil {
+		respondWithError(res, http.StatusInternalServerError, err.Error())
+	}
+
+	respondWithJSON(res, http.StatusOK, user)
+
+}
+
+func (app *App) login(res http.ResponseWriter, req *http.Request) {
+	var account model.Account
+	decoder := json.NewDecoder(req.Body)
+	if err := decoder.Decode(&account); err != nil {
+		respondWithError(res, http.StatusBadRequest, "Invalid request payload")
+		return
+	}
+	defer req.Body.Close()
+
+	fmt.Println("account : ", account)
+
+	user, err := account.Login(app.DB, account)
 	if err != nil {
 		respondWithError(res, http.StatusInternalServerError, err.Error())
 	}
