@@ -22,13 +22,12 @@ func TestRegister(t *testing.T) {
 
 }
 
-
 // TODO: Fix GetUserWithId for no values returned.
 
 func TestAccount_GetUserWithId(t *testing.T) {
 	var account = model.Account{}
 	db := initializeDB()
-	userId := 1100
+	userId := 5
 	user, err := account.GetUserWithId(db, userId)
 	fmt.Println("User value : ", user)
 	assert.NotEmpty(t, user)
